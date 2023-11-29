@@ -8,10 +8,25 @@ const TaskProvider = ({ children }) => {
     JSON.parse(localStorage.getItem("tasks")) || []
   );
 
+  // Update local storage whenever tasks change
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
+
   // task add handler
   const addTask = (newTask) => {
     setTasks([...tasks, newTask]);
   };
+
+  // task edit
+  const editTask = (editedTask) => {
+    const updatedTasks = tasks.map((task) => {
+      return task?.id == editedTask?.id ? editedTask : task;
+    });
+    setTasks(updatedTasks);
+    localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+  };
+
   // delete task handler
   const deleteTask = (id) => {
     const updatedTasks = tasks.filter((task) => task.id !== id);
@@ -26,17 +41,13 @@ const TaskProvider = ({ children }) => {
     setTasks(updatedTasks);
   };
 
-  // Update local storage whenever tasks change
-  useEffect(() => {
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-  }, [tasks]);
-
   // state and all handler
   const taskInfo = {
     tasks,
     addTask,
     toggoleComplete,
     deleteTask,
+    editTask,
   };
   return (
     <TaskContext.Provider value={taskInfo}>{children}</TaskContext.Provider>

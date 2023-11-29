@@ -1,15 +1,16 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { TaskContext } from "../context/TaskProvider";
 
 // Define the priority levels
 const priorityLevels = ["Low", "Medium", "High"];
 
-const AddTaskForm = ({ addTask }) => {
+const AddTaskForm = () => {
+  const { addTask } = useContext(TaskContext);
   // State to manage form values
   const [task, setTask] = useState({
     name: "",
     description: "",
     priority: "low",
-    id: Date.now(),
   });
 
   // setter function handler
