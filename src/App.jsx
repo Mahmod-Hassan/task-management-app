@@ -1,13 +1,15 @@
 import { Route, Routes } from "react-router-dom";
 import MainLayout from "./layout/Main";
-import AddTask from "./pages/AddTask";
+import AddTaskForm from "./pages/AddTask";
+import TaskList from "./pages/TaskList";
 
 function App() {
   return (
     <div>
       <Routes>
         <Route path="/" element={<MainLayout />}>
-          <Route path="/" element={<AddTask />} />
+          <Route path="/" element={<AddTaskForm />} />
+          <Route path="/task-list" element={<TaskList />} />
         </Route>
       </Routes>
     </div>
