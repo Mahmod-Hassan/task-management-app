@@ -1,28 +1,41 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // Define the priority levels
 const priorityLevels = ["Low", "Medium", "High"];
 
 const AddTaskForm = () => {
   // State to manage form values
-  const [taskName, setTaskName] = useState("");
-  const [taskDescription, setTaskDescription] = useState("");
-  const [priority, setPriority] = useState("");
+  const [task, setTask] = useState({
+    name: "",
+    description: "",
+    priority: "low",
+    id: Date.now(),
+  });
+  const [tasks, setTasks] = useState([]);
+
+  // setter function handler
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setTask({ ...task, [name]: value });
+  };
+
+  // Update local storage whenever tasks change
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
+
+  const addTask = (newTask) => {
+    setTasks([...tasks, newTask]);
+  };
 
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // Handle form data (you can send it to an API or perform other actions)
-    console.log("Task Name:", taskName);
-    console.log("Task Description:", taskDescription);
-    console.log("Priority:", priority);
-
-    // Reset form fields
-    // setTaskName('');
-    // setTaskDescription('');
-    // setPriority('');
+    addTask({ ...task, id: Date.now(), completed: false });
+    // empty form
+    setTask({ name: "", description: "", priority: "low" });
   };
+
   return (
     <div className="container mx-auto mt-8">
       <form
@@ -39,9 +52,9 @@ const AddTaskForm = () => {
           </label>
           <input
             type="text"
-            id="taskName"
-            value={taskName}
-            onChange={(e) => setTaskName(e.target.value)}
+            name="name"
+            value={task.name}
+            onChange={handleChange}
             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
             required
           />
@@ -56,9 +69,9 @@ const AddTaskForm = () => {
             Task Description
           </label>
           <textarea
-            id="taskDescription"
-            value={taskDescription}
-            onChange={(e) => setTaskDescription(e.target.value)}
+            name="description"
+            value={task.description}
+            onChange={handleChange}
             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
             required
           />
@@ -73,9 +86,9 @@ const AddTaskForm = () => {
             Priority Level
           </label>
           <select
-            id="priority"
-            value={priority}
-            onChange={(e) => setPriority(e.target.value)}
+            name="priority"
+            value={task.priority}
+            onChange={handleChange}
             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
             required
           >
