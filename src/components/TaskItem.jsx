@@ -1,10 +1,12 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { TaskContext } from "../context/TaskProvider";
 import Button from "./Button";
+import EditForm from "./EditForm";
 
 const TaskItem = ({ task }) => {
+  const [modalOpen, setModalOpen] = useState(false);
   const { id, name, description, priority, completed } = task;
-  const { toggoleComplete } = useContext(TaskContext);
+  const { toggoleComplete, deleteTask } = useContext(TaskContext);
   const tdClass = "py-2 px-4 border-r";
   return (
     <tr className={`border-t ${completed ? "line-through" : "none"}`}>
@@ -19,11 +21,16 @@ const TaskItem = ({ task }) => {
       <td className={`${tdClass}`}>{description}</td>
       <td className={`${tdClass}`}>{priority}</td>
       <td className={`${tdClass}`}>
-        <Button classes="bg-blue-500">Edit</Button>
+        <Button onClick={() => setModalOpen(true)} classes="bg-blue-500">
+          Edit
+        </Button>
       </td>
       <td className={`${tdClass}`}>
-        <Button classes="bg-red-500">Delete</Button>
+        <Button onClick={() => deleteTask(id)} classes="bg-red-500">
+          Delete
+        </Button>
       </td>
+      {modalOpen && <EditForm setModalOpen={setModalOpen} />}
     </tr>
   );
 };
