@@ -1,7 +1,10 @@
+import { useContext } from "react";
+import { TaskContext } from "../context/TaskProvider";
 import Button from "./Button";
 
 const TaskItem = ({ task }) => {
   const { id, name, description, priority, completed } = task;
+  const { toggoleComplete } = useContext(TaskContext);
   const tdClass = "py-2 px-4 border-r";
   return (
     <tr className={`border-t ${completed ? "line-through" : "none"}`}>

@@ -1,6 +1,9 @@
+import { useContext } from "react";
 import TaskItem from "../components/TaskItem";
+import { TaskContext } from "../context/TaskProvider";
 
-const TaskList = ({ tasks }) => {
+const TaskList = () => {
+  const { tasks } = useContext(TaskContext);
   const tdClass = "py-2 px-4 border-r";
   return (
     <div className="container mx-auto p-4">
