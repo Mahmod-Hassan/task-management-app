@@ -1,8 +1,12 @@
-const TaskList = () => {
+import TaskItem from "../components/TaskItem";
+
+const TaskList = ({ tasks }) => {
   return (
-    <div>
-      <h1>this is task list page</h1>
-    </div>
+    <ul>
+      {tasks.map((task) => (
+        <TaskItem key={task.id} task={task} />
+      ))}
+    </ul>
   );
 };
 

@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 // Define the priority levels
 const priorityLevels = ["Low", "Medium", "High"];
 
-const AddTaskForm = () => {
+const AddTaskForm = ({ addTask }) => {
   // State to manage form values
   const [task, setTask] = useState({
     name: "",
@@ -11,21 +11,11 @@ const AddTaskForm = () => {
     priority: "low",
     id: Date.now(),
   });
-  const [tasks, setTasks] = useState([]);
 
   // setter function handler
   const handleChange = (e) => {
     const { name, value } = e.target;
     setTask({ ...task, [name]: value });
-  };
-
-  // Update local storage whenever tasks change
-  useEffect(() => {
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-  }, [tasks]);
-
-  const addTask = (newTask) => {
-    setTasks([...tasks, newTask]);
   };
 
   // Handle form submission
