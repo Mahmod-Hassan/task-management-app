@@ -8,8 +8,8 @@ function App() {
     <div>
       <Routes>
         <Route path="/" element={<MainLayout />}>
-          <Route path="/" element={<AddTaskForm />} />
-          <Route path="/task-list" element={<TaskList />} />
+          <Route element={<AddTaskForm />} />
+          <Route path="task-list" element={<TaskList />} />
         </Route>
       </Routes>
     </div>

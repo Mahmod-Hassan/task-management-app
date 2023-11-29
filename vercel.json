@@ -1,0 +1,6 @@
+{
+  "routes": [
+    { "src": "/task-list", "dest": "/index.html" },
+    { "src": "/(.*)", "dest": "/index.html" }
+  ]
+}
