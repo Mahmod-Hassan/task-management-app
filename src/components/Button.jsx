@@ -1,12 +1,8 @@
 import React from "react";
 
-const Button = ({ children, classes, type, ...args }) => {
+const Button = ({ children, bgColor, ...props }) => {
   return (
-    <button
-      className={`text-white rounded-md px-3 py-1 ${classes}`}
-      {...args}
-      type={type}
-    >
+    <button className={`text-white rounded-md px-3 py-1 ${bgColor}`} {...props}>
       {children}
     </button>
   );

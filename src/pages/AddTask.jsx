@@ -1,9 +1,9 @@
 import { useContext, useState } from "react";
+import Form from "../components/Form";
+import Select from "../components/Select";
+import TextArea from "../components/TextArea";
+import TextInput from "../components/TextInput";
 import { TaskContext } from "../context/TaskProvider";
-
-// Define the priority levels
-const priorityLevels = ["Low", "Medium", "High"];
-
 const AddTaskForm = () => {
   const { addTask } = useContext(TaskContext);
   // State to manage form values
@@ -29,70 +29,24 @@ const AddTaskForm = () => {
 
   return (
     <div className="container mx-auto mt-8">
-      <form
-        onSubmit={handleSubmit}
-        className="max-w-md mx-auto bg-white p-6 rounded-md shadow-md"
-      >
+      <Form onSubmit={handleSubmit}>
         {/* Task Name field */}
-        <div className="mb-4">
-          <label
-            htmlFor="taskName"
-            className="block text-gray-600 font-semibold mb-2"
-          >
-            Task Name
-          </label>
-          <input
-            type="text"
-            name="name"
-            value={task.name}
-            onChange={handleChange}
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-            required
-          />
-        </div>
 
-        {/* Task Description field */}
-        <div className="mb-4">
-          <label
-            htmlFor="taskDescription"
-            className="block text-gray-600 font-semibold mb-2"
-          >
-            Task Description
-          </label>
-          <textarea
-            name="description"
-            value={task.description}
-            onChange={handleChange}
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-            required
-          />
-        </div>
-
-        {/* Priority Level dropdown */}
-        <div className="mb-4">
-          <label
-            htmlFor="priority"
-            className="block text-gray-600 font-semibold mb-2"
-          >
-            Priority Level
-          </label>
-          <select
-            name="priority"
-            value={task.priority}
-            onChange={handleChange}
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-            required
-          >
-            <option value="" disabled>
-              Select priority level
-            </option>
-            {priorityLevels.map((level) => (
-              <option key={level} value={level.toLowerCase()}>
-                {level}
-              </option>
-            ))}
-          </select>
-        </div>
+        <TextInput
+          label="Task Name"
+          type="text"
+          name="name"
+          value={task.name}
+          onChange={handleChange}
+        />
+        <TextArea
+          label="Task Description"
+          type="text"
+          name="description"
+          value={task.description}
+          onChange={handleChange}
+        />
+        <Select name="priority" value={task.priority} onChange={handleChange} />
 
         {/* Submit button */}
         <button
@@ -101,7 +55,7 @@ const AddTaskForm = () => {
         >
           Submit
         </button>
-      </form>
+      </Form>
     </div>
   );
 };
