@@ -7,8 +7,11 @@ const TaskList = () => {
   const { tasks } = useContext(TaskContext);
   const [priority, setPriority] = useState(0);
 
+  // this content variable stored all task
+  // if task length is empty then it store only 'Task Not Found'
   let content = null;
 
+  // sorted by priority
   const sortedByPriority = (a, b) => {
     if (priority === "low") {
       const priorityOrder = { low: 1, medium: 2, high: 3 };
@@ -43,7 +46,7 @@ const TaskList = () => {
       <select
         onChange={(e) => setPriority(e.target.value)}
         name="priority"
-        className="my-8 w-[100px] border-2 border-gray-900"
+        className="my-8 w-[200px]  border-2 border-gray-900"
       >
         <option value={0}>none</option>
         <option value="low">Low</option>
